@@ -1,0 +1,22 @@
+---
+title: "Jaylah Moering"
+subtitle: "Data Science Student"
+
+# Replace with your actual image file name
+image: mypic.jpg
+
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/JaylahMoering
+---
+
+A little bit about my life.
+
+{{< lipsum 1 >}}
+
+## Education
+
+## Experience
