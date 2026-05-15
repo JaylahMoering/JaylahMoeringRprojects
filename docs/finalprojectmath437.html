@@ -159,10 +159,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#motivation-and-context" id="toc-motivation-and-context" class="nav-link" data-scroll-target="#motivation-and-context">Motivation and Context</a></li>
   <li><a href="#packages-used-in-this-analysis" id="toc-packages-used-in-this-analysis" class="nav-link" data-scroll-target="#packages-used-in-this-analysis">Packages Used In This Analysis</a></li>
   <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
-  <li><a href="#data-wrangling-optional-section" id="toc-data-wrangling-optional-section" class="nav-link" data-scroll-target="#data-wrangling-optional-section">Data Wrangling (Optional Section)</a></li>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">Data Wrangling</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#univariate-summaries-and-graphs" id="toc-univariate-summaries-and-graphs" class="nav-link" data-scroll-target="#univariate-summaries-and-graphs">univariate summaries and graphs</a></li>
+  <li><a href="#bivariate-or-multivariate-trends-or-lack-thereof" id="toc-bivariate-or-multivariate-trends-or-lack-thereof" class="nav-link" data-scroll-target="#bivariate-or-multivariate-trends-or-lack-thereof">bivariate or multivariate trends (or lack thereof)</a>
+  <ul class="collapse">
+  <li><a href="#overall-vs-scientific-age" id="toc-overall-vs-scientific-age" class="nav-link" data-scroll-target="#overall-vs-scientific-age">Overall vs Scientific age</a></li>
+  <li><a href="#how-race-impacts-overall-rating" id="toc-how-race-impacts-overall-rating" class="nav-link" data-scroll-target="#how-race-impacts-overall-rating">How race impacts overall rating</a></li>
+  <li><a href="#additional-follow-up-question" id="toc-additional-follow-up-question" class="nav-link" data-scroll-target="#additional-follow-up-question">Additional follow up question</a></li>
+  <li><a href="#closing" id="toc-closing" class="nav-link" data-scroll-target="#closing">Closing</a></li>
+  </ul></li>
+  </ul></li>
   <li><a href="#modeling" id="toc-modeling" class="nav-link" data-scroll-target="#modeling">Modeling</a></li>
-  <li><a href="#insightsconclusion" id="toc-insightsconclusion" class="nav-link" data-scroll-target="#insightsconclusion">Insights/Conclusion</a>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
   <ul class="collapse">
   <li><a href="#limitations-and-future-work" id="toc-limitations-and-future-work" class="nav-link" data-scroll-target="#limitations-and-future-work">Limitations and Future Work</a></li>
   </ul></li>
@@ -191,30 +201,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>This section should include:</p>
-<ul>
-<li>Your main question or objective</li>
-<li>The main insight(s) from your project</li>
-<li>A figure that supplements that insight, along with accompanying text describing the figure. This figure can be a cleaned-up version of a visualization you produced in EDA or a visualization using your final model.</li>
-</ul>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>The goal of this project was to investigate whether professor ratings on RateMyProfessor are associated with perception-related variables such as scientific age, discipline, race, gender, hotness status, and mentions of accent in reviews. I explored whether these variables could help explain differences in student evaluations.</p>
+<p>The exploratory analysis showed that discipline, hotness status, and mentions of accent appeared more strongly associated with ratings than scientific age. Professors in Humanities and Social Sciences generally received higher ratings, while professors with accent mentions tended to receive somewhat lower ratings on average.</p>
+<p>I fit both a regression tree model and a multiple linear regression model to predict professor ratings using these variables. Both models performed similarly, with RMSE values around 0.85, suggesting moderate predictive accuracy.</p>
+<p>Figure 1 shows the observed versus predicted ratings from the linear regression model. Points closer to the diagonal line represent more accurate predictions. The graph shows that the model captures general trends in the data, but many predictions remain spread away from the line, suggesting that additional factors beyond the variables included in this project likely influence professor ratings.</p>
+<p><img src="images/clipboard-2330425441.png" class="img-fluid"></p>
 </section>
-<section id="motivation-and-context" class="level2">
-<h2 class="anchored" data-anchor-id="motivation-and-context">Motivation and Context</h2>
-<p>This section describes what you are investigating in your project and why you are investigating it. You should provide enough contextual background and information that someone with a limited background can understand the broad outlines of the topic being investigated.</p>
+<section id="motivation-and-context" class="level1">
+<h1>Motivation and Context</h1>
+<p>Student evaluations are commonly used to measure teaching effectiveness in colleges and universities, but ratings may also be influenced by perception-related factors beyond teaching quality. Variables such as gender, race, age, attractiveness, and accent may affect how students evaluate professors.</p>
+<p>In this project, I investigated whether professor ratings on RateMyProfessor are associated with variables such as scientific age, discipline, race, gender, hotness status, and mentions of accent in reviews. I used exploratory data analysis along with supervised learning models, including a regression tree and multiple linear regression, to better understand which factors appear most associated with professor ratings and how well these variables predict student evaluations</p>
 </section>
-<section id="packages-used-in-this-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="packages-used-in-this-analysis">Packages Used In This Analysis</h2>
-<p>This section lists the packages used in the analysis. You should have a single chunk that loads the packages followed by a description of why you are using each package. Please use individual package names rather than tidyverse and tidymodels, to make it clear which specific packages are being used.</p>
+<section id="packages-used-in-this-analysis" class="level1">
+<h1>Packages Used In This Analysis</h1>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rsample)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rsample)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tune)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dials)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(recipes)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parsnip)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(workflows)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yardstick)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>You should follow the template table below. Each row of the table contains the package name in brackets, a link to the package website, and (on the right side) a description of what you used the package for. If you can’t find a link to the package website, or you’re having trouble getting the link to work, don’t worry about including it.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -243,40 +259,488 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><a href="https://ggplot2.tidyverse.org/">ggplot2</a></td>
 <td>to create nice-looking and informative graphs</td>
 </tr>
+<tr class="even">
+<td><a href="https://tune.tidymodels.org/">tune</a></td>
+<td>tuning the regression tree</td>
+</tr>
+<tr class="odd">
+<td><a href="https://dials.tidymodels.org/">dials</a></td>
+<td>tuning parameter grids</td>
+</tr>
+<tr class="even">
+<td><a href="https://recipes.tidymodels.org/">recipes</a></td>
+<td>to preprocess and transform variables before modeling</td>
+</tr>
+<tr class="odd">
+<td><a href="https://broom.tidymodels.org/">broom</a></td>
+<td>to tidy and augment model outputs</td>
+</tr>
+<tr class="even">
+<td><a href="https://workflows.tidymodels.org/">workflows</a></td>
+<td>to combine preprocessing and models into one pipeline</td>
+</tr>
+<tr class="odd">
+<td><a href="https://parsnip.tidymodels.org/">parsnip</a></td>
+<td>to define machine learning models using a consistent interface</td>
+</tr>
+<tr class="even">
+<td><a href="https://yardstick.tidymodels.org/">yardstick</a></td>
+<td>to evaluate model performance using RMSE and other metrics</td>
+</tr>
+<tr class="odd">
+<td><a href="https://tidyr.tidyverse.org/">tidyr</a></td>
+<td>help create tidy data</td>
+</tr>
 </tbody>
 </table>
 </section>
-<section id="data-description" class="level2">
-<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
-<p>This section should describe the data that you are using, the source of the data (including a link if appropriate), and how the data was originally collected. You should be able to just clean up the Data Description section from Project 2.</p>
-<p>At the end of the section you should import the data, unless it’s already in one of the packages you loaded.</p>
+<section id="data-description" class="level1">
+<h1>Data Description</h1>
+<p>This data was originally collected by Murray et al.&nbsp;and their team to try to understand the relationship between a professor’s research output and teaching effectiveness. To quantify effectiveness, they collected information about U.S. tenure-track faculty who appear in both RateMyProfessor.com and Academic Analytics. Each observation (row) represents one faculty member and we have 22038 observations in total. The data Murray et al.&nbsp;collected also has 32 variables.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rmp <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"aarmp_final.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="data-wrangling-optional-section" class="level2">
-<h2 class="anchored" data-anchor-id="data-wrangling-optional-section">Data Wrangling (Optional Section)</h2>
-<p>If you did any data wrangling on Project 2, include it here. If you are creating training and test sets for predictive modeling, you should also include that code in an appropriate place in this section.</p>
+<section id="data-wrangling" class="level1">
+<h1>Data Wrangling</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rmp_bias <span class="ot">&lt;-</span> rmp <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    overall,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    mentions_accent,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    scientific_age,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    race,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    discipline,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    hotness,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    gender,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">gender =</span> <span class="fu">as.factor</span>(gender),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">discipline =</span> <span class="fu">as.factor</span>(discipline),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">hotness =</span> <span class="fu">as.factor</span>(hotness),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">mentions_accent =</span> <span class="fu">as.factor</span>(mentions_accent),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">437</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>rmp_bias_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(rmp_bias, <span class="at">prop =</span> <span class="fl">0.80</span>, <span class="at">strata =</span> overall)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>rmp_bias_train <span class="ot">&lt;-</span> <span class="fu">training</span>(rmp_bias_split)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>rmp_bias_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(rmp_bias_split)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>I did some limited data wrangling, but the data set was already mostly clean and ready for analysis. I selected variables that were most relevant to my project question, which focuses on whether professor ratings are associated with perception-related variables such as scientific age, discipline, gender, race, hotness, and mentions of accent in reviews.I also used an 80% training and 20% testing split. This gives the model a large amount of data to learn patterns while saving enough observations to fairly evaluate model performance on unseen data.</p>
 </section>
-<section id="exploratory-data-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
-<p>This section should include the code, figures, and accompanying text for the exploratory data analysis that is relevant to your objective. You should be able to just clean up the EDA section from Project 2.</p>
+<section id="exploratory-data-analysis" class="level1">
+<h1>Exploratory Data Analysis</h1>
+<section id="univariate-summaries-and-graphs" class="level2">
+<h2 class="anchored" data-anchor-id="univariate-summaries-and-graphs">univariate summaries and graphs</h2>
+<p>The variable overall is the average professor rating on RateMyProfessor, measured from 1 to 5. Since this is the main response variable in my project, I first produced a summary, and examined its distribution. This helps show whether professors are generally rated positively.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rmp_bias_train <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_overall_train =</span> <span class="fu">mean</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_overall_train =</span> <span class="fu">sd</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_train =</span> <span class="fu">min</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1_train =</span> <span class="fu">quantile</span>(overall, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_train =</span> <span class="fu">median</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3_train =</span> <span class="fu">quantile</span>(overall, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_train =</span> <span class="fu">max</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  mean_overall_train sd_overall_train min_train Q1_train median_train Q3_train
+               &lt;dbl&gt;            &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+1               3.52            0.934         1     2.88         3.64     4.29
+# ℹ 1 more variable: max_train &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rmp_bias_train, <span class="fu">aes</span>(<span class="at">x =</span> overall)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.25</span>, <span class="at">center =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Overall Professor Ratings"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Overall Rating"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Professor Count"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="finalprojectmath437_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram shows how professor ratings are distributed across the data set. Most professors appear to receive ratings in the middle-to-higher range, suggesting that extremely low ratings are less common and that students hesitate to give out low ratings.</p>
+<p>Another variable I wanted to explore was scientific_age, which measures the number of years since a professor received their highest degree. Student ratings may differ depending on professors experience. For example, professors with more experience may be more comfortable teaching their subject, while newer professors may relate differently to students. Professors with higher scientific age may also be older, which can affect teaching style and how students see them.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rmp_bias_train <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_scientific_age_train =</span> <span class="fu">mean</span>(scientific_age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_scientific_age_train =</span> <span class="fu">sd</span>(scientific_age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_scientific_age_train =</span> <span class="fu">min</span>(scientific_age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1_scientific_age_train =</span> <span class="fu">quantile</span>(scientific_age, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_scientific_age_train =</span> <span class="fu">median</span>(scientific_age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3_scientific_age_train =</span> <span class="fu">quantile</span>(scientific_age, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_scientific_age_train =</span> <span class="fu">max</span>(scientific_age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  mean_scientific_age_train sd_scientific_age_train min_scientific_age_train
+                      &lt;dbl&gt;                   &lt;dbl&gt;                    &lt;dbl&gt;
+1                      21.6                    11.9                        0
+# ℹ 4 more variables: Q1_scientific_age_train &lt;dbl&gt;,
+#   median_scientific_age_train &lt;dbl&gt;, Q3_scientific_age_train &lt;dbl&gt;,
+#   max_scientific_age_train &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rmp_bias_train, <span class="fu">aes</span>(<span class="at">x =</span> scientific_age)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">center =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of scientific_age"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"scientific_age"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Professor Count"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="finalprojectmath437_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram shows that most professors have scientific ages between about 8 and 30 years, with the highest concentration around 10 to 20 years. There are fewer professors with very high scientific ages, creating a long right tail. This indicates that the distribution of scientific_age is right-skewed.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> rmp_bias_train,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> discipline)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Discipline"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Number of Professors by Discipline"</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="finalprojectmath437_files/figure-html/discipline-bar-chart-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I also examined the variable discipline, since student evaluations may differ across academic fields. This bar chart shows the number of professors represented in each discipline group. The way students feel about a subject could affect their rating. For example, lots of student form a bias against science due to not feeling comfortable with a subject, this could effect how they rate a professor.</p>
 </section>
-<section id="modeling" class="level2">
-<h2 class="anchored" data-anchor-id="modeling">Modeling</h2>
-<p>The section should include the code, output, and accompanying descriptions for <em>one</em> supervised or unsupervised learning model, as appropriate to your question or objective. The descriptions should include some conceptual or mathematical background explaining how the model works.</p>
-<p>You should be able to just clean up one of the modeling sections from Project 2.</p>
+<section id="bivariate-or-multivariate-trends-or-lack-thereof" class="level2">
+<h2 class="anchored" data-anchor-id="bivariate-or-multivariate-trends-or-lack-thereof">bivariate or multivariate trends (or lack thereof)</h2>
+<section id="overall-vs-scientific-age" class="level3">
+<h3 class="anchored" data-anchor-id="overall-vs-scientific-age">Overall vs Scientific age</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> rmp_bias_train,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> scientific_age,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> overall</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.1</span> <span class="co"># transparency</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_smooth(</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#method = "lm",</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#se = FALSE # no confidence band</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">#) +</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Overall Rating vs Scientific age"</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"scientific age"</span>,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Overall rating"</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="finalprojectmath437_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I created a scatter plot of overall rating versus scientific_age to examine whether more experienced professors tend to receive different student ratings. The graph does not show a strong linear relationship between the two variables. Professors with both high and low ratings appear across nearly all levels of scientific age. This suggests that years since receiving a terminal degree may not be a strong predictor of professor ratings on its own.</p>
+<p>there is lots of variation in ratings at every scientific age. This could suggest that other factors such as accent, race, discipline, hotness, and gender could play a role in ratings.</p>
 </section>
-<section id="insightsconclusion" class="level2">
-<h2 class="anchored" data-anchor-id="insightsconclusion">Insights/Conclusion</h2>
-<p>Pick either “Insights” or “Conclusion” as the section title depending on what makes more sense.</p>
-<p>Describe the primary findings from your EDA and modeling sections as appropriate to the main question/objective. You can reproduce the figure from your summary if that helps.</p>
+<section id="how-race-impacts-overall-rating" class="level3">
+<h3 class="anchored" data-anchor-id="how-race-impacts-overall-rating">How race impacts overall rating</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>rmp_bias_train <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_overall_by_race =</span> <span class="fu">mean</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_overall_by_race =</span> <span class="fu">sd</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_by_race =</span> <span class="fu">min</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1_by_race =</span> <span class="fu">quantile</span>(overall, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_by_race =</span> <span class="fu">median</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3_by_race =</span> <span class="fu">quantile</span>(overall, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_by_race =</span> <span class="fu">max</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 9
+  race          n mean_overall_by_race sd_overall_by_race min_by_race Q1_by_race
+  &lt;chr&gt;     &lt;int&gt;                &lt;dbl&gt;              &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+1 UNK        3241                 3.47              0.942           1       2.77
+2 non-white  4768                 3.42              0.953           1       2.72
+3 white      9620                 3.59              0.916           1       3   
+# ℹ 3 more variables: median_by_race &lt;dbl&gt;, Q3_by_race &lt;dbl&gt;, max_by_race &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> rmp_bias_train,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> race,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> overall</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.1</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Overall Rating by Race"</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Race"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Overall Rating"</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="finalprojectmath437_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I next explored whether professor ratings differed across race groups. The summary statistics and boxplots show that white faculty members had the highest average and median overall ratings, while non-white faculty members had the lowest. The unknown race group fell in between the other two groups. However, the boxplots show large overlap in the distributions, this indicates that many professors within each group received similar ratings. This suggests that race alone does not appear to have a strong association with overall rating.</p>
+</section>
+<section id="additional-follow-up-question" class="level3">
+<h3 class="anchored" data-anchor-id="additional-follow-up-question">Additional follow up question</h3>
+<p>Does discipline have visible impact on rating?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rmp_bias_train <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(discipline) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_overall_by_discipline =</span> <span class="fu">mean</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_overall_by_discipline =</span> <span class="fu">sd</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_by_discipline =</span> <span class="fu">min</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q1_by_discipline =</span> <span class="fu">quantile</span>(overall, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_by_discipline =</span> <span class="fu">median</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q3_by_discipline =</span> <span class="fu">quantile</span>(overall, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_by_discipline =</span> <span class="fu">max</span>(overall, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 9
+  discipline           n mean_overall_by_discipline sd_overall_by_discipline
+  &lt;fct&gt;            &lt;int&gt;                      &lt;dbl&gt;                    &lt;dbl&gt;
+1 Engineering       1874                       3.36                    1.04 
+2 Humanities        3791                       3.78                    0.824
+3 Medical sciences  1003                       3.48                    0.920
+4 Natural Sciences  5931                       3.35                    0.962
+5 Social Sciences   5030                       3.61                    0.886
+# ℹ 5 more variables: min_by_discipline &lt;dbl&gt;, Q1_by_discipline &lt;dbl&gt;,
+#   median_by_discipline &lt;dbl&gt;, Q3_by_discipline &lt;dbl&gt;, max_by_discipline &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> rmp_bias_train,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> discipline,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> overall</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.1</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Overall Rating by discipline"</span>,</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"discipline"</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Overall Rating"</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="finalprojectmath437_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As a follow-up question, I explored whether professor ratings differed across academic disciplines. Student expectations and teaching styles may vary across fields, so I chose investigate whether ratings also vary by discipline.</p>
+<p>The summary statistics and boxplots show noticeable differences across groups. Professors in the Humanities had the highest average and median overall ratings, followed by Social Sciences. Natural Sciences and Engineering had the lowest average ratings, while Medical Sciences fell in the middle. Although the distributions overlap, the differences in centers suggest that discipline may have a meaningful association with professor ratings.</p>
+<p>One possible explanation is that courses in some disciplines may be perceived as more difficult, more subjective, or more discussion-based, which could influence how students evaluate instructors. Students could also find humanities easier or be more passionate about the subject, thus leading them to give out higher ratings.</p>
+</section>
+<section id="closing" class="level3">
+<h3 class="anchored" data-anchor-id="closing">Closing</h3>
+<p>Overall, the exploratory analysis suggests that some variables are more strongly associated with professor ratings than others. Scientific age showed little clear relationship with ratings, while discipline showed more noticeable differences across groups. Race showed smaller average differences with substantial overlap. These findings suggest that academic context may matter more than experience alone, and that multiple variables should be considered together in later supervised learning models.</p>
+</section>
+</section>
+</section>
+<section id="modeling" class="level1">
+<h1>Modeling</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lm_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"regression"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">engine =</span> <span class="st">"lm"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>lm_wflow <span class="ot">&lt;-</span> lm_wflow <span class="sc">|&gt;</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(lm_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lm_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  overall <span class="sc">~</span> scientific_age <span class="sc">+</span> race <span class="sc">+</span> discipline <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    hotness <span class="sc">+</span> mentions_accent <span class="sc">+</span> gender,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> rmp_bias_train</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lm_wflow <span class="ot">&lt;-</span> lm_wflow <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(lm_recipe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lm_fit <span class="ot">&lt;-</span> <span class="fu">fit</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  lm_wflow, <span class="co"># first argument is workflow to fit</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> rmp_bias_train <span class="co"># fit on the training set</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lm_fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══ Workflow [trained] ══════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: linear_reg()
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+2 Recipe Steps
+
+• step_dummy()
+• step_zv()
+
+── Model ───────────────────────────────────────────────────────────────────────
+
+Call:
+stats::lm(formula = ..y ~ ., data = data)
+
+Coefficients:
+                (Intercept)               scientific_age  
+                    3.26999                     -0.00884  
+                   race_UNK                   race_white  
+                    0.04742                      0.12830  
+      discipline_Humanities  discipline_Medical.sciences  
+                    0.34021                      0.13259  
+discipline_Natural.Sciences   discipline_Social.Sciences  
+                    0.03165                      0.18769  
+                hotness_hot        mentions_accent_TRUE.  
+                    0.70774                     -0.23761  
+                   gender_M  
+                    0.13893  </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lm_predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  lm_fit,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">new_data =</span> rmp_bias_test</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lm_predictions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 1
+  .pred
+  &lt;dbl&gt;
+1  3.45
+2  3.24
+3  4.42
+4  3.26
+5  3.52
+6  3.56</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lm_predictions_augment <span class="ot">&lt;-</span> lm_fit <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_data =</span> rmp_bias_test</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(lm_predictions_augment)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 9
+  .pred  .resid overall mentions_accent scientific_age race   discipline hotness
+  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;                    &lt;dbl&gt; &lt;chr&gt;  &lt;fct&gt;      &lt;fct&gt;  
+1  3.45 -1.95      1.5  FALSE                       14 white  Natural S… cold   
+2  3.24  0.318     3.56 FALSE                       23 non-w… Natural S… cold   
+3  4.42 -0.0587    4.36 FALSE                       10 UNK    Humanities hot    
+4  3.26 -0.674     2.59 TRUE                        16 UNK    Social Sc… cold   
+5  3.52  0.405     3.93 FALSE                       40 white  Humanities cold   
+6  3.56  0.816     4.38 FALSE                       36 white  Humanities cold   
+# ℹ 1 more variable: gender &lt;fct&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rmse</span>(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> lm_predictions_augment,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">truth =</span> overall,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> .pred</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  .metric .estimator .estimate
+  &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+1 rmse    standard       0.857</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> lm_predictions_augment,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> overall,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> .pred</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">slope =</span> <span class="dv">1</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept =</span> <span class="dv">0</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Observed vs Predicted Ratings: Linear Regression"</span>,</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Observed Overall Rating"</span>,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Predicted Overall Rating"</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="finalprojectmath437_files/figure-html/calibration-plot-linear-regression-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I fit a multiple linear regression model to predict professor ratings. Linear regression estimates the average relationship between the response variable, overall, and the predictor variables while holding the other predictors constant. The predictors I used were scientific age, race, discipline, hotness, mentions of accent, and gender. Categorical variables were converted into dummy variables in the recipe.</p>
+<p>Linear regression assumes that the relationship between the predictors and overall is roughly linear, that the errors have similar spread across fitted values, and that observations are independent. Based on my EDA, these assumptions are only somewhat reasonable because professor ratings are bounded between 1 and 5 and many ratings are concentrated near the higher end. This makes the relationship imperfectly linear and may cause predictions to be pulled toward the middle.</p>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>The coefficient table provides insight into how each variable is associated with ratings after accounting for the others. Several variables showed meaningful relationships with professor ratings. For example, the coefficient for scientific_age was negative, suggesting that professors with more years since their highest degree tended to receive slightly lower ratings on average, holding the other variables constant.</p>
+<p>The hotness_hot coefficient was strongly positive (about 0.71), indicating that professors with the hotness indicator were predicted to receive higher ratings on average than professors without it, after controlling for the other variables. In contrast, mentions_accent_TRUE had a negative coefficient (about -0.24), suggesting that professors whose reviews mentioned an accent tended to receive lower ratings on average.</p>
+<p>There were also noticeable differences across disciplines. Professors in Humanities and Social Sciences had positive coefficients relative to the reference discipline group, meaning they tended to receive higher ratings on average after accounting for the other variables. These results, as well as my EDA results suggest that perception-related variables such as hotness and accent mentions, along with discipline and experience, are associated with student evaluations.</p>
+<p>The observed versus predicted graph shows moderate predictive ability. The model tends to predict values closer to the middle of the rating scale. This means the linear model under predicts some highly rated professors and over predicts some lower rated professors. This is also supported by the RMSE of the linear model, which was 0.857, meaning predictions were off by about 0.857 rating points on average. This suggests that while perception-related variables such as hotness and accent mentions help explain student ratings, they do not capture the full picture. Other important factors beyond bias-related variables likely also influence professor evaluations.</p>
 <section id="limitations-and-future-work" class="level3">
 <h3 class="anchored" data-anchor-id="limitations-and-future-work">Limitations and Future Work</h3>
-<p>This section should include further exploration of the limitations of your modeling approach. Some avenues of exploration include:</p>
-<ul>
-<li>Who/what is being poorly predicted by your model? Why?</li>
-<li>How might someone improve the data collection or analysis in the future?</li>
-<li>Are the assumptions behind your analytical methods justified?</li>
-<li>Are there ethical concerns about how the data was collected or how the results of the analysis could be used in the real world?</li>
-</ul>
+<p>The linear regression model showed only moderate predictive accuracy, with an RMSE above 0.85. The model struggled to predict professors with very high or very low ratings, suggesting that important factors affecting student evaluations were not included in the dataset. Variables such as course difficulty, grading style, or teaching personality may also influence ratings.</p>
+<p>The linear regression model also assumes a roughly linear relationship between the predictors and professor ratings, which may not be fully reasonable because ratings are limited to a 1–5 scale. This may reduce the model’s ability to accurately capture more complex relationships in the data.</p>
+<p>Future research could improve the analysis by collecting additional variables related to teaching quality and classroom environment. There are also ethical concerns because student evaluations may reflect biases related to race, gender, attractiveness, or accent. Since professor ratings may influence hiring or promotion decisions, the results of this analysis should be interpreted carefully and not viewed as direct measures of teaching effectiveness.</p>
 
 
 </section>

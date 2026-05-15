@@ -1,6 +1,6 @@
 ---
 title: "Jaylah Moering"
-subtitle: "Data Science Student"
+subtitle: "Actuarial Mathematics Student"
 
 # Replace with your actual image file name
 image: mypic.jpg
@@ -13,10 +13,13 @@ about:
       href: https://github.com/JaylahMoering
 ---
 
-A little bit about my life.
+A little bit about my life:
 
-{{< lipsum 1 >}}
+\
+I grew up in Mission Viejo, California and lived there my whole life. I have three beautiful pets, and I'm on track to graduate with my bachelors degree from Cal State Fullerton in spring 2026!
 
 ## Education
 
-## Experience
+Associate of Science in Mathematics\
+
+[Saddleback College]{.underline}
